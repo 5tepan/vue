@@ -3,11 +3,11 @@ import { computed, ref } from "vue"
 export function useSortedAndSearchPosts(sortedPosts) {
     const searchQuery = ref('')
 
-    const sortedAndSerchedPosts = computed(() => {
+    const sortedAndSearchPosts = computed(() => {
         return sortedPosts.value.filter(post => post.title.toLowerCase().includes(searchQuery.value.toLowerCase()))
     })
 
     return {
-        searchQuery, sortedAndSerchedPosts
+        searchQuery, sortedAndSearchPosts
     }
 }

@@ -3,7 +3,7 @@
         <h1>Посты</h1>
         <my-input v-model="searchQuery" placeholder="Поиск..."/>
         <div class="appBtn">
-            <my-button @click="showDialog">
+            <my-button>
                 Создать пост
             </my-button>
             <my-select
@@ -19,19 +19,19 @@
             v-if="!isPostLoading"
         />
         <div v-else>Loading...</div>
-        <div class="pageWrapper">
-            <div
-                v-for="pageNumber in totalPages"
-                :key="pageNumber"
-                class="page"
-                :class="{
-                    'curPage': page === pageNumber
-                }"
-                @click="changePage(pageNumber)"
-            >
-                {{pageNumber}}
-            </div>
-        </div>
+<!--        <div class="pageWrapper">-->
+<!--            <div-->
+<!--                v-for="pageNumber in totalPages"-->
+<!--                :key="pageNumber"-->
+<!--                class="page"-->
+<!--                :class="{-->
+<!--                    'curPage': page === pageNumber-->
+<!--                }"-->
+<!--                @click="changePage(pageNumber)"-->
+<!--            >-->
+<!--                {{pageNumber}}-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 </template>
 
@@ -39,8 +39,8 @@
 import PostForm from "@/components/PostForm.vue"
 import PostList from "@/components/PostList.vue"
 import {usePosts} from "@/hooks/usePosts"
-import {useSortedPosts} from "@/hooks/sortedPosts"
 import {useSortedAndSearchPosts} from "@/hooks/sortedAndSearchPosts"
+import {useSortedPosts} from "@/hooks/sortedPosts"
 
 export default {
     components: {
@@ -58,11 +58,11 @@ export default {
     },
     setup(props) {
         const {posts, totalPages, isPostLoading} = usePosts(10)
-        const {useSortedPosts, selectedSort} = useSortedPosts(posts)
-        const {searchQuery, sortedAndSerchedPosts} = useSortedAndSearchPosts(useSortedPosts)
+        const {sortedPosts, selectedSort} = useSortedPosts(posts)
+        const {searchQuery, sortedAndSearchPosts} = useSortedAndSearchPosts(sortedPosts)
         
         return {
-            posts, totalPages, isPostLoading, useSortedPosts, selectedSort, searchQuery, sortedAndSerchedPosts
+            posts, totalPages, isPostLoading, sortedPosts, selectedSort, searchQuery, sortedAndSearchPosts
         }
     }  
 }
